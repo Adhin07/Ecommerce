@@ -1,6 +1,6 @@
 const { Error } = require("mongoose");
-const userModel = require("../models/userModel")
 const bcrypt =require("bcryptjs");
+const userModel = require("../../models/userModel");
 
 
 async function userSignUpController(req,res){

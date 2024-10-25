@@ -75,7 +75,7 @@ const SignUp = () => {
       }
       }
     else {
-      console.log("please check the password  and confirm password")
+      toast.error("please check the password  and confirm password")
     }
   }
 
@@ -86,8 +86,9 @@ const SignUp = () => {
   return (
     <section id="SignUp">
       <div className='mx-auto container p-4'>
+      
 
-        <div className='bg-white p-5 w-full max-w-sm mx-auto'>
+        <div className='bg-gradient-to-r from-blue-400 to-red-400 p-5 w-full max-w-sm mx-auto rounded-2xl '>
 
           <div className='w-20 h-20 mx-auto relative overflow-hidden rounded-full'>
             <div><img src={data.profilePic || loginIcons} alt="login icons" /></div>
@@ -106,7 +107,7 @@ const SignUp = () => {
 
             <div className='grid'>
               <label>Name:</label>
-              <div className='bg-slate-100 p-2'>
+              <div className='bg-slate-100 p-2 rounded-md'>
                 <input type="text"
                   placeholder='enter your name'
                   name='name'
@@ -119,7 +120,7 @@ const SignUp = () => {
 
             <div className='grid'>
               <label>Email:</label>
-              <div className='bg-slate-100 p-2'>
+              <div className='bg-slate-100 p-2 rounded-md'>
                 <input type="email"
                   placeholder='enter email'
                   name='email'
@@ -132,7 +133,7 @@ const SignUp = () => {
 
             <div>
               <label>Password:</label>
-              <div className='bg-slate-100 p-2 flex'>
+              <div className='bg-slate-100 p-2 flex rounded-md'>
                 <input type={showPassword ? "text" : "password"}
                   placeholder='enter password'
                   value={data.password}
@@ -151,11 +152,11 @@ const SignUp = () => {
                     {
                       showPassword ?
                         (
-                          <FaEyeSlash />
+                          <FaEye />
                         )
                         :
                         (
-                          <FaEye />
+                          <FaEyeSlash />
                         )
                     }
 
@@ -168,7 +169,7 @@ const SignUp = () => {
 
             <div>
               <label>Confirm Password:</label>
-              <div className='bg-slate-100 p-2 flex'>
+              <div className='bg-slate-100 p-2 flex rounded-md'>
                 <input type={showConfirmPassword ? "text" : "password"}
                   placeholder='enter confirm password'
                   value={data.confirmPassword}
@@ -187,11 +188,11 @@ const SignUp = () => {
                     {
                       showConfirmPassword ?
                         (
-                          <FaEyeSlash />
+                          <FaEye /> 
                         )
                         :
                         (
-                          <FaEye />
+                          <FaEyeSlash />
                         )
                     }
 

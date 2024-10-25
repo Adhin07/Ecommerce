@@ -1,7 +1,7 @@
 const { Error } = require("mongoose");
-const userModel = require("../models/userModel")
 const bcrypt =require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const userModel = require("../../models/userModel");
 
  async function userSignInController(req,res) {
     try{
@@ -16,7 +16,7 @@ const jwt = require('jsonwebtoken');
             throw new Error("Please provide password")
         }
 
-        const user=await userModel.findOne({email})
+        const user = await userModel.findOne({email})
 
         if(!user){
             throw new Error("User not found")
@@ -34,6 +34,7 @@ const jwt = require('jsonwebtoken');
             }
 
          const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY,{ expiresIn: 60 * 60 * 8 });
+         console.log("token signin ",token)
 
          const tokenOption={
             httpOnly:true,

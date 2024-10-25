@@ -8,6 +8,10 @@ import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import Context from '../context';
 import { fetchUserDetails } from '../apis/fetching';
+import { useDispatch } from 'react-redux';
+
+
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -15,6 +19,9 @@ const Login = () => {
     email : "",
     password :""
   })
+
+  const dispatch = useDispatch()
+   
 
   const navigate =useNavigate()
   const generalContext = useContext(Context)
@@ -50,7 +57,7 @@ const Login = () => {
       if(dataApi.success){
         toast.success(dataApi.message)
         navigate('/')
-        fetchUserDetails()
+        fetchUserDetails({dispatch})
       }
 
 
@@ -61,13 +68,12 @@ const Login = () => {
 
     }
 
-  console.log("data login",data)
+
 
   return (
-    <section id="login">
+    <section id="login" >
       <div className='mx-auto container p-4'>
-
-        <div className='bg-white p-5 w-full max-w-sm mx-auto'>
+        <div className='bg-gradient-to-r from-blue-400 to-red-400 p-5 w-full max-w-sm mx-auto rounded-2xl'>
 
           <div className='w-20 h-20 mx-auto'>
             <img src={loginIcons} alt="login icons" style={{borderRadius:100}} />
@@ -81,19 +87,19 @@ const Login = () => {
 
             <div className='grid'>
               <label>Email:</label>
-              <div className='bg-slate-100 p-2'>
+              <div className='bg-slate-100 p-2 rounded-md'>
                 <input type="email" 
                 placeholder='enter email'
                 name='email'
                  onChange={handleOnChange}
                  value={data.email}
-                 className='w-full h-full outline-none bg-transparent' />
+                 className='w-full h-full outline-none bg-transparent ' />
               </div>
             </div>
 
             <div>
               <label>Password:</label>
-              <div className='bg-slate-100 p-2 flex'>
+              <div className='bg-slate-100 p-2 flex rounded-md'>
                 <input type={showPassword ? "text" : "password"} 
                 placeholder='enter password'
                 value={data.password}
@@ -112,11 +118,11 @@ const Login = () => {
                     {
                       showPassword ?
                         (
-                          <FaEyeSlash />
+                          <FaEye />
                         )
                         :
                         (
-                          <FaEye />
+                          <FaEyeSlash />
                         )
                     }
 

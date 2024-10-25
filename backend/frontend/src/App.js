@@ -3,37 +3,39 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 import  Header from './components/Header';
 import Footer from './components/Footer.js';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import Context from './context/index.js';
 import { fetchUserDetails } from './apis/fetching.js';
+import { useDispatch } from 'react-redux';
 
 
 
 function App() {
 
-   
+  const dispatch = useDispatch()
 
   useEffect(()=>{
-    fetchUserDetails()
-  },[])
+    fetchUserDetails({dispatch})  },[dispatch])
+    
+
 
 
   return (
-    <div className='flex flex-col min-h h-screen'>
+    <div className='flex flex-col min-h-screen'>
     <>
     <Context.Provider value={{
-        fetchUserDetails //user details fetch
+        fetchUserDetails      //user details fetch
     }}>
     <ToastContainer/>
     <Header/>
-    <main className='min-h-[calc(100vh-120px])'>
+    <main className='flex-grow'>
       <Outlet/>
       </main>
     
     <Footer/>
-  </Context.Provider>
+ </Context.Provider>
     </>
     </div>
    

@@ -2,7 +2,7 @@ const mongoose =require("mongoose")
 
 async function connectDB(){
     try{
-        await mongoose.connect(process.env.MONGOSDB_URI)
+      await mongoose.connect(process.env.MONGOSDB_URI)
         console.log("connect to DB")
 
     }catch (err){
@@ -14,3 +14,4 @@ async function connectDB(){
 }
 
 module.exports = connectDB
+

@@ -1,14 +1,15 @@
-const userModel=require("../models/userModel")
+const userModel = require("../../models/userModel")
+
 
   async function userDetailsController(req,res){
 
-    
-
-    try{
+     try{
         console.log("userId ",req.userId)
-        const user =await userModel.findById(req.userId)
+        const user = await userModel.findById(req.userId)
 
-        console.log("user",user)
+
+        console.log("user ",user)
+       
 
         res.status(200).json({
             data :user,
@@ -18,9 +19,11 @@ const userModel=require("../models/userModel")
             
         })
 
-        console.log("user",user)
+      
+    }
+    catch(err){   
 
-    }catch(err){
+    
         res.status(400).json({
             message :err.message || err,
             error :true,
