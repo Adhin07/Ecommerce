@@ -5,7 +5,6 @@ import moment from 'moment'
 import { MdOutlineEdit } from "react-icons/md";
 import ChangeUserRole from '../components/ChangeUserRole'
 
-
 const AllUsers = () => {
   const [allUser,setAllUsers]=useState([])
   const [openUpdateRole,setOpenUpdateRole]=useState(false)

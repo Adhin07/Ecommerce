@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import SummaryApi from '../common'
 import { FaStar, FaStarHalf } from 'react-icons/fa'
 import displayINRcurrency from '../helpers/displayCurrency'
+import VerticalCardProduct from '../components/VerticalcardProduct'
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
 
 const ProductDetails = () => {
 
@@ -20,8 +22,15 @@ const ProductDetails = () => {
   const [loading,setLoading]=useState(true)
   const productImageListLoading =new Array(4).fill(null)
   const [activeImage,setActiveImage]=useState("")
+
+  const [zoomImageCoordinate,setZoomImageCoordinate] =useState({
+    x:0,
+    y:0
+  })
+
+  const [zoomImage,setZoomImage]=useState(false)
   
-  console.log("product id",params)
+
 
   const fetchProductDetails =async()=> {
     setLoading(true)
@@ -35,22 +44,43 @@ const ProductDetails = () => {
       })
     })
 
-   setLoading(false)
+    setLoading(false)
     const dataResponse =await response.json()
 
     setData(dataResponse?.data)
     setActiveImage(dataResponse?.data.productImage[0])
   }
 
-  console.log("product-details data image",data)
 
   useEffect(()=>{
     fetchProductDetails()
-  },[])
+  },[params])
 
   const handleMouseEnterProduct=(imgURL)=>{
     setActiveImage(imgURL)
   }
+
+  const handleZoomImage=useCallback((e)=>{
+    setZoomImage(true)
+     const { left , top , width , height }= e.target.getBoundingClientRect()
+     console.log("cordinate", left , top , width , height)
+
+     const x=(e.clientX - left ) /width
+     const y=(e.clientY -top ) / height
+
+     setZoomImageCoordinate({
+      x,
+      y
+    })
+    
+  },[zoomImageCoordinate])
+
+   const handleLeaveImageZoom =()=>{
+    setZoomImage(false)
+   }
+
+  
+  
 
   return (
     <div className='container mx-auto p-4'>
@@ -59,19 +89,26 @@ const ProductDetails = () => {
 
       {/*product image */}
       <div className='h-96 flex flex-col lg:flex-row-reverse gap-4 '>
-        <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200  relative '>
-          <img src={activeImage} className='w-full h-full object-scale-down mix-blend-multiply'/>
+        <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200  relative p-2'>
+          <img src={activeImage} className='w-full h-full object-scale-down mix-blend-multiply' onMouseMove={handleZoomImage} onMouseLeave={handleLeaveImageZoom}/>
 
 
           {/*product zoom */}
-          <div className=' hidden lg:block absolute min-w-[400px] min-h-[400px] bg-slate-200 p-1 -right-[410px] top-0'>
-            <div className='w-full h-full' 
-            style={{
-              background:`url(${activeImage})`
-            }}>
-
+          {
+            zoomImage && (
+              <div className=' hidden lg:block absolute min-w-[500px] min-h-[400px] bg-slate-200 overflow-hidden p-1 -right-[510px] top-0'>
+              <div className='w-full h-full min-h-[400px] min-w-[500px] mix-blend-multiply scale-150 ' 
+              style={{
+                backgroundImage:`url(${activeImage})`,
+                backgroundRepeat:'no-repeat',
+                backgroundPosition:`${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`
+              }}>
+  
+              </div>
             </div>
-          </div>
+            )
+          }
+          
 
         </div>
           <div className='h-full'>
@@ -81,7 +118,7 @@ const ProductDetails = () => {
 
                {
                  
-                productImageListLoading.map(el=>{
+                productImageListLoading?.map(el=>{
                   return(
                     <div className='h-20 w-20 bg-slate-200 rounded' key={"productImageListLoading"}>
                   </div>
@@ -173,6 +210,13 @@ const ProductDetails = () => {
 
 
      </div>
+      {
+        data.category &&(
+          <CategoryWiseProductDisplay category={data.category} heading={'Recommeded products'}/>
+        )
+      }
+   
+
     </div>
   )
 }
