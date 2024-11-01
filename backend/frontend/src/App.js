@@ -22,20 +22,20 @@ function App() {
 
 
 
-  return (
+    return (
     <div className='flex flex-col min-h-screen'>
     <>
     <Context.Provider value={{
-        fetchUserDetails      //user details fetch
+        fetchUserDetails //user details fetch
     }}>
     <ToastContainer/>
     <Header/>
-    <main className='flex-grow'>
-      <Outlet/>
-      </main>
+    <main className='min-h-[calc(100vh-120px)] pt-16'>
+    <Outlet/>
+    </main>
     
     <Footer/>
- </Context.Provider>
+    </Context.Provider>
     </>
     </div>
    
