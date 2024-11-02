@@ -1,6 +1,6 @@
 const { Error } = require("mongoose");
-const userModel = require("../models/userModel")
 const bcrypt =require("bcryptjs");
+const userModel = require("../../models/userModel");
 
 
 async function userSignUpController(req,res){
@@ -15,7 +15,7 @@ async function userSignUpController(req,res){
         }
 
         if(!email){
-            throw new Error("please provide email")
+            throw new Error("backend : please provide email")
         }
         if(!password){
             throw new Error("please provide password")
@@ -34,6 +34,7 @@ async function userSignUpController(req,res){
         
         const payload={
             ...req.body,
+            role :"GENERAL",
             password:hashPassword
         }
 
