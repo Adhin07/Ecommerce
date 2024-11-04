@@ -3,6 +3,7 @@ import SummaryApi from '../common'
 import Context from '../context'
 import displayINRcurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 
 const Cart = () => {
@@ -11,9 +12,11 @@ const Cart = () => {
     const [loading,setLoading]=useState(false)
     const context =useContext(Context)
     const loadingCart=new Array(context.cartProductCount).fill(null)
+    const navigate = useNavigate();
+
 
     const fetchData=async()=>{
-        setLoading(true)
+      
         const response =await fetch(SummaryApi.addToCartProductView.url,{
             method:SummaryApi.addToCartProductView.method,
             credentials:'include',
@@ -23,7 +26,7 @@ const Cart = () => {
 
         })
 
-        setLoading(false)
+         
 
         const responseData=await response.json()
 
@@ -32,8 +35,14 @@ const Cart = () => {
         }
     }
 
+    const handleLoading=async()=>{
+        await fetchData()
+    }
+
     useEffect(()=>{
-        fetchData()
+        setLoading(true)
+        handleLoading()
+        setLoading(false)
     },[])
 
 
@@ -54,7 +63,7 @@ const Cart = () => {
             )
         })
 
-        const responseData =await response.json
+        const responseData =await response.json()
 
         if(responseData.success)
         {
@@ -81,7 +90,7 @@ const Cart = () => {
                 )
             })
     
-            const responseData =await response.json
+            const responseData =await response.json()
     
             if(responseData.success)
             {
@@ -115,6 +124,7 @@ const Cart = () => {
         }
     }
 
+
     
     const totalQty=data.reduce((previousValue,currentValue)=>previousValue+currentValue.quantity,0)
     const totalPrice=data.reduce((prev,curr)=> prev+(curr.quantity * curr?.productId?.sellingPrice),0)
@@ -138,9 +148,9 @@ const Cart = () => {
             <div className='w-full max-w-3xl'>
                 {
                     loading ? (
-                        loadingCart.map(el=>{
+                        loadingCart.map((el,index)=>{
                             return(
-                                <div key={el+"Add To Cart Loading"} className='w-full bg-slate-200 h-32 my-2 border border-slate-300  animate-pulse rounded '>
+                                <div key={el+"Add To Cart Loading"+index} className='w-full bg-slate-200 h-32 my-2 border border-slate-300  animate-pulse rounded '>
                             </div>
                             )
                             
@@ -152,12 +162,12 @@ const Cart = () => {
                            return(
                             <div key={product?._id+"Add To Cart Loading"} className='w-full bg-white h-32 my-2 border border-slate-300 rounded grid grid-cols-[128px,1fr]'>
                                 <div className='w-32 h-full bg-slate-200'>
-                                    <img src={product?.productId.productImage[0]} className='w-full h-full object-scale-down mix-blend-multiply'alt=''/>
+                                    <img src={product?.productId?.productImage[0]} className='w-full h-full object-scale-down mix-blend-multiply'alt='' />
                                 </div> 
  
                                 <div className='px-4 py-2 relative'>
                                     {/**delete product */}
-                                    <div className='absolute right-0 text-red-600 p-2 w- rounded-full hover:bg-red-600 hover:text-white cursor-pointer ' onClick={()=>deleteCartProduct(product?._id)}>
+                                    <div className='absolute right-0 text-red-600 p-2 w- rounded-full hover:bg-red-600 hover:text-white cursor-pointer' onClick={()=>deleteCartProduct(product?._id)}>
                                         <MdDelete/>
                                     </div>
 
