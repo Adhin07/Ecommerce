@@ -2,8 +2,8 @@ const orderModel = require("../../models/orderProductModel")
 
 const orderController=async(request,response)=>{
     try{
-        const currentUserId=request.currentUserId
-        const orderList =await orderModel.find({ userId : currentUserId})
+        const currentUserId=request.userId
+        const orderList =await orderModel.find({ userId : currentUserId}).sort({ createdAt : -1 })
 
         response.json({
             data:orderList,

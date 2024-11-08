@@ -19,7 +19,7 @@ const orderSchema =new mongoose.Schema({
             type:String,
             default:""
         },
-        payment_method_type:[],
+        payment_method_types:[],
         payment_status:{
             type:String,
             default:""

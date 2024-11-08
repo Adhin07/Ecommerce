@@ -82,7 +82,7 @@ const VerticalCardProduct=({category,heading})=>{
                       <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow '>
                         <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex items-center justify-center'>
                            <img src={product.productImage[0]} className="object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply"/>
-                     </div>
+                        </div>
                       <div className="p-4 grid gap-3">
                        <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1">{product.productName}</h2>
                            <p className="capitalize text-slate-500">{product?.category}</p>
