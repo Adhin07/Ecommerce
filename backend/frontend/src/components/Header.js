@@ -142,7 +142,7 @@ const Header = () => {
 
         {
           user?._id && (
-            <Link to={"/cart"}className='text-2xl relative  '>
+            <Link to={"/cart"}className='text-2xl relative '>
             <span><FaShoppingCart /></span>
   
             <div className='bg-red-600 text-white w-5 h-5 p-1 rounded-full flex items-center justify-center absolute -top-2 -right-3'>
