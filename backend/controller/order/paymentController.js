@@ -17,7 +17,10 @@ const paymentController =async(request,response)=>{
                     shipping_rate :'shr_1QGaau2L5AOVKpult6EzC9MB'
                 }
             ],
-            customer_email:user.emai,
+            customer_email:user.email,
+            metadata:{
+                userId:request.userId
+            },
             line_items :cartItems.map((Item,index)=>{
                 return{
                     price_data:{

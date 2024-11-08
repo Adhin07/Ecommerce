@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 const Cancel = () => {
   return (
-    <div className='bg-salte-200 w-full max-w-md mx-auto flex justify-center items-center flex-col p-4 mt-2'>
-    <img src={CANCELIMAGE} width={300}
+    <div className='bg-salte-200 w-full max-w-md mx-auto flex justify-center items-center flex-col p-4 mt-2 '>
+    <img src={CANCELIMAGE} width={300} className='mix-blend-multiply animate-bounce '
     height={300}/>
     
     <p className='text-red-600 font-bold text-lg'> payment Cancelled</p>
