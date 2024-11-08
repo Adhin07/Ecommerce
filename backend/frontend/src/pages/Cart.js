@@ -4,7 +4,7 @@ import Context from '../context'
 import displayINRcurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-
+import {loadStripe} from '@stripe/stripe-js';
 
 const Cart = () => {
 
@@ -124,7 +124,28 @@ const Cart = () => {
         }
     }
 
+    const handlePayment=async()=>{
 
+        const stripePromise =await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+            const response=await fetch(SummaryApi.payment.url,
+              {  method:SummaryApi.payment.method,
+                credentials:'include',
+                headers:{
+                    "content-type" :"application/json"
+                },
+                body : JSON.stringify({
+                    cartItems :data 
+                })
+                }
+            )
+            const responseData=await response.json()
+
+            if(responseData?.id){
+                stripePromise.redirectToCheckout({sessionId :responseData.id})
+            }
+
+            console.log("payment response",responseData)
+    }
     
     const totalQty=data.reduce((previousValue,currentValue)=>previousValue+currentValue.quantity,0)
     const totalPrice=data.reduce((prev,curr)=> prev+(curr.quantity * curr?.productId?.sellingPrice),0)
@@ -161,7 +182,7 @@ const Cart = () => {
                         {
                            return(
                             <div key={product?._id+"Add To Cart Loading"} className='w-full bg-white h-32 my-2 border border-slate-300 rounded grid grid-cols-[128px,1fr]'>
-                                <div className='w-32 h-full bg-slate-200'>
+                                <div className='w-32 h-32 bg-slate-200'>
                                     <img src={product?.productId?.productImage[0]} className='w-full h-full object-scale-down mix-blend-multiply'alt='' />
                                 </div> 
  
@@ -192,32 +213,38 @@ const Cart = () => {
 
             {/**summary */}
 
-            <div className='mt-5 lg:mt-0 w-full max-w-sm'>
-                {
-                    loading ?(
-                        <div className='h-36 bg-slate-200'>
-
-                            Total
-                            </div>
-                    ):(
-                        <div className='h-36 bg-white'>
-                            <h2 className='text-white bg-red-600 px-4 py-1'> Summary</h2>
-                            <div className='flex item\ justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                                <p>Quanity</p>
-                                <p>{totalQty}</p>
-                            </div>
-
-                            <div className='flex item\ justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
-                                <p>Total Price</p>
-                                <p>{displayINRcurrency(totalPrice)}</p>
-                            </div>
-
-                            <button className='bg-blue-600 p-2 text-white w-full mt-2'>Payment</button>
-                    
+            {
+                data[0] &&(
+                    <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+                    {
+                        loading ?(
+                            <div className='h-36 bg-slate-200'>
+    
+                                Total
+                                </div>
+                        ):(
+                            <div className='h-36 bg-white'>
+                                <h2 className='text-white bg-red-600 px-4 py-1'> Summary</h2>
+                                <div className='flex item\ justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                                    <p>Quanity</p>
+                                    <p>{totalQty}</p>
+                                </div>
+    
+                                <div className='flex item\ justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                                    <p>Total Price</p>
+                                    <p>{displayINRcurrency(totalPrice)}</p>
+                                </div>
+    
+                                <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={handlePayment}>Payment</button>
+                        
+                </div>
+               )}
+    
             </div>
-           )}
+                )
+            }
 
-        </div>
+           
       
     </div>
     </div>

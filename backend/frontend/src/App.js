@@ -38,7 +38,7 @@ function App() {
   useEffect(()=>{
     fetchUserDetails({dispatch,setCartProductCount})
     fetchUserAddToCart()
-  },[dispatch,SummaryApi])
+  },[dispatch])
     
 
 
