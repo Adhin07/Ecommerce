@@ -21,6 +21,7 @@ const SearchProduct = () => {
         setData(dataResponse.data)
         
     }
+    
 
     useEffect(()=>{
         fetchProduct()
@@ -52,5 +53,8 @@ const SearchProduct = () => {
     </div>
   )
 }
+
+
+
 
 export default SearchProduct
