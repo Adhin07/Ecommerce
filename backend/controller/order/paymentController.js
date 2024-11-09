@@ -7,6 +7,9 @@ const paymentController =async(request,response)=>{
 
         const user=await userModel.findOne({_id :request.userId})
         
+
+            console.log("cart items in order ",cartItems[0].productId.productImage)
+
         const params={
             submit_type:"pay",
             mode:"payment",
@@ -27,7 +30,7 @@ const paymentController =async(request,response)=>{
                      currency:"inr",
                      product_data:{
                         name: Item.productId.productName,
-                        images:Item.productId.productImages,
+                        images:Item.productId.productImage,
                         metadata :{
                             productId:Item.productId._id
                         } 

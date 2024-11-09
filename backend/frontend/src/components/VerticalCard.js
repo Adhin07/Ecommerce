@@ -16,7 +16,7 @@ const VerticalCard = ({loading,data = []  }) => {
         fetchUserAddToCart()
     }
 
-    console.log("vetical card data",data)
+   
 
   return (
     <div>

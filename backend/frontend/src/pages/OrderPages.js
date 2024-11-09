@@ -16,7 +16,7 @@ const OrderPages = () => {
 
       setData(responseData.data)
 
-      console.log("order list ",responseData)
+    
       
     }
 

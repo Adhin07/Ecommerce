@@ -24,7 +24,7 @@ const userModel = require("../../models/userModel");
 
         const checkPassword =await bcrypt.compare(password,user.password)
 
-        console.log("Checkpassword",checkPassword)
+        
 
         if(checkPassword)
         {
@@ -34,7 +34,7 @@ const userModel = require("../../models/userModel");
             }
 
          const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY,{ expiresIn: 60 * 60 * 8 });
-         console.log("token signin ",token)
+        
 
          const tokenOption={
             httpOnly:true,

@@ -29,7 +29,7 @@ function App() {
   });
 
   const data =await dataResponse.json()
-  console.log("cart data",data.data.count)
+
   setCartProductCount(data?.data?.count)
   }
   

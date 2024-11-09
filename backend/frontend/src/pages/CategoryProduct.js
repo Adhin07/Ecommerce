@@ -27,7 +27,7 @@ const CategoryProduct = () => {
 
     const [sortBy,setSortBy]=useState("")
 
-    console.log("sortBy",sortBy)
+    
 
     const fetchData=async()=>{
       const response =await fetch(SummaryApi.filterProduct.url,{
