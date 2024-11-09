@@ -10,6 +10,7 @@ async function getLineItems(lineItems){
     let ProductItems=[]
 
 
+
    if(lineItems?.data?.length){
     for(const item of lineItems.data){
         const product =await stripe.products.retrieve(item.price.product)
@@ -64,7 +65,6 @@ const webhook=async(request,response)=>{
 
         const productDetails =await  getLineItems(lineItems)
 
-       
 
         const orderDetails={
             productDetails:productDetails,
@@ -87,6 +87,7 @@ const webhook=async(request,response)=>{
         }
 
         const order =new orderModel(orderDetails)
+
         const saveOrder =await order.save()
 
         if(saveOrder?._id){

@@ -80,8 +80,6 @@ const SignUp = () => {
   }
 
 
-  console.log("data login", data)
-
 
   return (
     <section id="SignUp">

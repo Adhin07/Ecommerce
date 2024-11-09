@@ -144,7 +144,7 @@ const Cart = () => {
                 stripePromise.redirectToCheckout({sessionId :responseData.id})
             }
 
-            console.log("payment response",responseData)
+           
     }
     
     const totalQty=data.reduce((previousValue,currentValue)=>previousValue+currentValue.quantity,0)

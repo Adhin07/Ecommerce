@@ -25,7 +25,7 @@ export const fetchUserDetails = async ({ dispatch,setCartProductCount  }) => {
 
         // Parse the response as JSON
         const dataApi = await dataResponse.json();
-         console.log("dataApi ",dataApi)
+       
        
     
 
