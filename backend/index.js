@@ -27,3 +27,5 @@ connectDB().then(()=>{
 })
 
 })
+
+module.export =app
